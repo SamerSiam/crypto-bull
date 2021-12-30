@@ -9,7 +9,7 @@ function App() {
  
   const [results, setResults]=useState([]);
   const [isLoading, setLoading]=useState(false); 
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("Loading");
 
   useEffect(()=>{
    
@@ -17,13 +17,12 @@ function App() {
     setErrorMsg("");
     setLoading(true)
 try{ 
-    const {data}=await coinData.get(); 
-    
+    const {data}=await coinData.get('jhjh'); 
     setResults(data) ;
     setLoading(false);  
     console.log("data is",data) 
 }
-catch (err) {setErrorMsg(err.message)}
+catch (err) {setErrorMsg(err.message)  }
     
     
 };
@@ -31,12 +30,11 @@ fetch();
 
 }, []);
 
-
   return (
     <div className="App">
-    {isLoading? <Spinner/>:<Display items={results}/>} 
-       
-    
+    <div className='errors'> {errorMsg}</div>
+    {isLoading?  <Spinner message={errorMsg}/>:<Display items={results}/>} 
+      
     </div>
   );
 }
