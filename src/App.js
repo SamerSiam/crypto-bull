@@ -1,40 +1,37 @@
 import './App.css';
-import React, {useState, useEffect} from 'react'
+import React,{useState} from 'react'
+
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-import coinData from './API/Coin.api'
-import Spinner from './Components/Spinner/Spinner'
 import Display from './Components/Display/Display'
+import Header from './Components/Header/Header'
+import Dashboard from './Components/Dashboard/Dashboard'
+import Preferences from './Components/Preferences/Preferences'
+import Login from './Components/Login/Login'
 
 function App() {
  
-  const [results, setResults]=useState([]);
-  const [isLoading, setLoading]=useState(false); 
-  const [errorMsg, setErrorMsg] = useState("Loading");
+const [token,setToken]=useState();
 
-  useEffect(()=>{
-   
-    const fetch=async()=>{
-    setErrorMsg("");
-    setLoading(true)
-try{ 
-    const {data}=await coinData.get('jhjh'); 
-    setResults(data) ;
-    setLoading(false);  
-    console.log("data is",data) 
+  
+if(!token) {
+  return <Login setToken={setToken} />
 }
-catch (err) {setErrorMsg(err.message)  }
-    
-    
-};
-fetch();
 
-}, []);
-
-  return (
+return (
     <div className="App">
-    <div className='errors'> {errorMsg}</div>
-    {isLoading?  <Spinner message={errorMsg}/>:<Display items={results}/>} 
-      
+      <BrowserRouter>
+      <Header/>
+      <Switch>
+        <Route path="/Home"><Display/></Route>
+       
+         <Route path="/dashboard"> <Dashboard /></Route>
+        
+         <Route path="/preferences"> <Preferences /> </Route>
+           
+          </Switch>
+      </BrowserRouter>
+    
     </div>
   );
 }
