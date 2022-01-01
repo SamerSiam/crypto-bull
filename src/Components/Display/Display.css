@@ -1,0 +1,15 @@
+.display-container{
+    display: block;
+    background-color:#FADCD9;
+    box-sizing: border-box;
+    width: 100%;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.logo img {
+  width: 30px;
+
+}
