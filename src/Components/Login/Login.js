@@ -15,7 +15,7 @@ export default function Login({setToken }) {
   /****************************************************** */
     const handleSubmit = async e => {
         e.preventDefault();
-        const userToken=userLogin(username,password)
+       userLogin(username,password)
         // setThisToken(userToken)
         // console.log("IN FORM SUBMIT",token)
         // setToken(userToken);
@@ -28,8 +28,9 @@ export default function Login({setToken }) {
         const { data } = await Tokens.get(`/Tokens/${usr}`)
         // setThisToken(data.token)
        console.log(data, data.token)
-        // return data.token;
         setToken(data.token);
+    //    return data.token;
+        
       } catch (e) {
         console.log({ errorMsg: e.message });
       }
