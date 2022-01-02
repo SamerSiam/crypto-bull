@@ -10,39 +10,37 @@ export default function Login({setToken }) {
 
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
-    const [token, setThisToken] = useState();
+    // const [token, setThisToken] = useState();
 
   /****************************************************** */
     const handleSubmit = async e => {
         e.preventDefault();
-        // const token = await login({
-        //   username,
-        //   password
-        // });
-        // setToken(token);
-        console.log("handler", e.target[0].value)
-        const userToken=userLogin()
-        setThisToken(userToken)
-        
+        const userToken=userLogin(username,password)
+        // setThisToken(userToken)
+        // console.log("IN FORM SUBMIT",token)
+        // setToken(userToken);
        
       }
   
   /********************************************************** */
-  const userLogin= async()=> {
+  const userLogin= async(usr,pwd)=> {
     try{
-        const { data } = await Tokens.get(`/Tokens/${username}`)
-        
-        setToken(data.token)
-       console.log(data, "token is",token)
+        const { data } = await Tokens.get(`/Tokens/${usr}`)
+        // setThisToken(data.token)
+       console.log(data, data.token)
+        // return data.token;
+        setToken(data.token);
       } catch (e) {
         console.log({ errorMsg: e.message });
       }
+     
   }
 /************************************************************* */
 
     return(
+
     <div className="login-wrapper">
-    <h1>Please Log In</h1>
+    <h1>Sign in to Crypto Bull</h1>
     <form onSubmit={handleSubmit}>
       <label>
         <p>Username</p>
@@ -57,6 +55,7 @@ export default function Login({setToken }) {
       </div>
     </form>
     </div>
+
   )
 }
 
