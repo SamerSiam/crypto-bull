@@ -1,12 +1,32 @@
+body{
+  font-size:15px;
+}
+
+
 .display-container{
-    display: block;
-    background-color:#FADCD9;
+    display: flex;
+    background-color:#fff;
     box-sizing: border-box;
     width: 100%;
     padding-right: 16px;
     padding-left: 16px;
     margin-right: auto;
     margin-left: auto;
+    line-height: 21px;
+}
+
+.display-table{
+  width: 100%;
+  color: #333;
+  box-shadow: none;
+  vertical-align: middle;
+}
+
+.table-header{
+  min-width: 600px;
+  display: flex;
+  justify-content: space-between;
+  
 }
 
 .logo img {

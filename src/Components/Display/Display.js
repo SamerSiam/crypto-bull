@@ -38,7 +38,8 @@ fetch();
   else{
     return (
       <div className="display-container">
-        <table className="table">
+        <table className="ui fixed table">
+      <thead>
       <tr>
         <th>Name</th>
         <th>Symbol</th>
@@ -46,18 +47,20 @@ fetch();
         <th>Logo</th>
         <th>Current Price</th>
       </tr>
-      {results.map((item, index) => (
+      </thead>
+      <tbody>
+        {results.map((item, index) => (
       <div key={item.id} >
-        <tr>
-       <td className="item-id"> {item.id} </td>
-        <td className="symbol"> {item.symbol}</td>
+      <tr>
         <td className="name"> {item.name}</td>
+        <td className="symbol"> {item.symbol}</td>
         <td className="logo"> <img src={item.image} alt={item.name}/> </td>
-        <td>{item.symbol}</td>
         <td> {item.current_price}</td>
         </tr>
         </div>
-    ))}
+    ))} 
+      </tbody>
+     
     </table>
       </div>
   )
