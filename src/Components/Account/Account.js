@@ -5,35 +5,28 @@ import AccountDetails from "../AccountDetails/AccountDetails";
 function Account({ customer }) {
   const [account, setAccount] = useState(null);
   const [errorMsg, setErrorMsg] = useState("Loading");
-  const customerID = useRef(customer.id);
-
-  console.log("inside accounts userefs", customerID);
-  console.log("inside accounts customer object", customer);
+  //   const customerID = useRef(customer.id);
 
   useEffect(() => {
-    if (!customer) {
-      console.log("inside !customer");
-      return;
-    }
     const fetch = async () => {
       setErrorMsg("");
 
       try {
-        console.log("try");
+        console.log(" inside try");
         const { data } = await accountData.get("Accounts");
+        console.log(" API accounts", data);
 
-        const customerAct = data.filter((act) => {
-          console.log("filter", customerAct);
-          return act.customerID === customer.id;
-        });
-        console.log("account is", data, customer.id, customerAct);
-        setAccount(customerAct[0]);
+        if (customer && data) {
+          const customerAct = data.filter((act) => act.customerID === parseInt(customer.id));
+          console.log("account is", data, customer.id, customerAct);
+          setAccount(customerAct[0]);
+        }
       } catch (err) {
         setErrorMsg(err.message);
       }
     };
     fetch();
-  }, []);
+  }, [customer]);
 
   if (!account) return <div></div>;
 

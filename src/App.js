@@ -6,7 +6,6 @@ import "./App.css";
 import Display from "./Components/Display/Display";
 import Header from "./Components/Header/Header";
 import Account from "./Components/Account/Account";
-import Preferences from "./Components/Preferences/Preferences";
 import Login from "./Components/Login/Login";
 // import useToken from './useToken.js'
 
@@ -31,34 +30,25 @@ function App() {
 
   //  const [stateToken,setStateToken]=useState()
   // const {localToken,setLocalToken}= useToken();
-  
 
   if (!token) {
     return <Login setToken={setToken} setCust={setCust} />;
   }
- 
-// console.log("inside app custId", customer.firstname);
+
+  // console.log("inside app custId", customer.firstname);
   return (
     <div className="App">
       <BrowserRouter>
-      <Route
-      render={(props) => <Header customer={customer} {...props} />}>
-      </Route> 
-      <Switch>
+        <Route render={(props) => <Header customer={customer} {...props} />}></Route>
+        <Switch>
           <Route path="/Home">
             <Display />
           </Route>
 
           <Route
             path="/Account"
-            render={(props) => <Account customer={customer} {...props} />}>
-          
-          </Route>
-
-          <Route path="/preferences">
-            {" "}
-            <Preferences />{" "}
-          </Route>
+            render={(props) => <Account customer={customer} {...props} />}
+          ></Route>
         </Switch>
       </BrowserRouter>
     </div>

@@ -7,7 +7,13 @@ function AccountDetails({ account }) {
   return (
     <div>
       <h2> Acount Balance : ${account.balance}</h2>
-      <h3> {coins[0]}</h3>
+      {coins.map((item, index) => (
+        <div key={item.coin}>
+          <div>
+            {item.coin} {item.amount}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

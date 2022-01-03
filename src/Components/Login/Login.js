@@ -18,7 +18,7 @@ export default function Login({ setToken, setCust }) {
   const userLogin = async (usr, pwd) => {
     try {
       const { data } = await Tokens.get(`/Tokens/${usr}`);
-      console.log(data, data.token);
+      //   console.log(data, data.token);
       setToken(data.token);
       setCust(data);
     } catch (e) {
@@ -29,21 +29,68 @@ export default function Login({ setToken, setCust }) {
 
   return (
     <div className="login-wrapper">
-      <h1>Sign in to Crypto Bull</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={(e) => setUserName(e.target.value)} />
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password" onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        <div>
-          <button type="submit">Submit</button>
+      <div class="ui placeholder segment">
+        <div class="ui two column very relaxed stackable grid">
+          <div class="column">
+            <div class="ui form">
+              <div class="field">
+                <label>Username</label>
+                <div class="ui left icon input">
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    onChange={(e) => setUserName(e.target.value)}
+                  />
+                  <i class="user icon"></i>
+                </div>
+              </div>
+              <div class="field">
+                <label>Password</label>
+                <div class="ui left icon input">
+                  <input type="password" onChange={(e) => setPassword(e.target.value)} />
+                  <i class="lock icon"></i>
+                </div>
+              </div>
+              <div class="ui blue submit button" onClick={handleSubmit}>
+                Login
+              </div>
+            </div>
+          </div>
+          <div class="middle aligned column">
+            <div class="ui big button">
+              <i class="signup icon"></i>
+              Sign Up
+            </div>
+          </div>
         </div>
-      </form>
+        <div class="ui vertical divider">Or</div>
+      </div>
     </div>
+    // <div className="login-wrapper">
+    //   <h1>Sign in to Crypto Bull</h1>
+    //   <form onSubmit={handleSubmit}>
+    //     <label>
+    //       <p>Username</p>
+    //     </label>
+    //     <div class="ui left icon input">
+    //       <input type="text" placeholder="Username" onChange={(e) => setUserName(e.target.value)} />
+    //       <i class="user icon"></i>
+    //     </div>
+
+    //     <label>
+    //       <p>Password</p>
+    //     </label>
+    //     <div class="ui left icon input">
+    //       <input type="password" onChange={(e) => setPassword(e.target.value)} />
+    //       <i class="lock icon"></i>
+    //     </div>
+    //     <div>
+    //       <button class="ui blue submit button" type="submit">
+    //         Login
+    //       </button>
+    //     </div>
+    //   </form>
+    // </div>
   );
 }
 
