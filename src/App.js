@@ -35,15 +35,15 @@ function App() {
     return <Login setToken={setToken} setCust={setCust} />;
   }
 
-  // console.log("inside app custId", customer.firstname);
   return (
     <div className="App">
       <BrowserRouter>
         <Route render={(props) => <Header customer={customer} {...props} />}></Route>
         <Switch>
-          <Route path="/Home">
-            <Display />
-          </Route>
+          <Route
+            path="/Home"
+            render={(props) => <Display customer={customer} {...props} />}
+          ></Route>
 
           <Route
             path="/Account"
