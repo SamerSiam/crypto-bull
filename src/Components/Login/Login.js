@@ -20,6 +20,9 @@ export default function Login({ setToken, setCust }) {
       const { data } = await Tokens.get(`/Tokens/${usr}`);
       setToken(data.token);
       setCust(data);
+      if (data) {
+        this.props.history.push("/Home");
+      }
     } catch (e) {
       console.log({ errorMsg: e.message });
     }
