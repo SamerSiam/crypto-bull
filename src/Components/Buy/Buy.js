@@ -65,6 +65,7 @@ function Buy({ currentCoin, currentCustomer }) {
         <div>Total Price: {formatter.format(currentCoin.current_price * amount)}</div>
         <button className="ui primary button">Confirm Purchase</button>
       </form>
+      <div className="error">{message}</div>
     </div>
   );
 }
