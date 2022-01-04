@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import accountData from "../../API/Tokens";
 import AccountDetails from "../AccountDetails/AccountDetails";
 
@@ -30,11 +30,13 @@ function Account({ customer }) {
 
   if (!account) return <div></div>;
 
-  return (
-    <div>
-      <AccountDetails account={account} />
-    </div>
-  );
+  if (!errorMsg) {
+    return (
+      <div>
+        <AccountDetails account={account} />
+      </div>
+    );
+  }
 }
 
 export default Account;
