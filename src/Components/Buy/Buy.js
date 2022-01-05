@@ -91,7 +91,7 @@ function Buy({ currentCoin, currentCustomer, cancelBuy }) {
   /********************************************************** */
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit}>
+      <form className="form-buy" onSubmit={handleSubmit}>
         <h1>Purchase Coin</h1>
         <div className="form-coin">
           <div>
@@ -99,10 +99,20 @@ function Buy({ currentCoin, currentCustomer, cancelBuy }) {
           </div>
           <img src={currentCoin.image} alt={currentCoin.name} />
         </div>
-        <label> Enter Amount</label>
-        <input type="number" placeholder="amount" onChange={(e) => setAmount(e.target.value)} />
-        <div>Total Price: {formatter.format(currentCoin.current_price * amount)}</div>
-        <div> Current Balance: {formatter.format(account.balance)}</div>
+        <div className="form-row1">
+          <div className="input-label"> Enter Amount</div>
+
+          <div className="input-field">
+            <input type="number" placeholder="amount" onChange={(e) => setAmount(e.target.value)} />
+          </div>
+        </div>
+        <div className="form-row2">
+          <div>Total Price: {formatter.format(currentCoin.current_price * amount)}</div>
+        </div>
+
+        <div className="form-row3">
+          <div> Current Balance: {formatter.format(account.balance)}</div>
+        </div>
         <button className="ui primary button" onClick={() => hasEnoughFunds()}>
           Confirm Purchase
         </button>

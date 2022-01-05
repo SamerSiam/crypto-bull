@@ -6,8 +6,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 10px 10px;
-  background-color: #eeecfb;
-  width: 40vw;
+  width: 100vw;
   text-align: center;
 }
 .card {
@@ -16,7 +15,7 @@ body {
   border-radius: 15px;
   background-color: #ffffff;
   height: 100%;
-  width: 80%;
+  width: 40%;
 }
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(192, 144, 144, 0.2);
