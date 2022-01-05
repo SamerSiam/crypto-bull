@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getUserAccount, updateUserAccount } from "../../API/Accounts.api";
-import formatter from "../utils/formatter";
+import { formatter } from "../utils/formatter";
 import "./Buy.css";
 
 function Buy({ currentCoin, currentCustomer, cancelBuy }) {
@@ -46,7 +46,13 @@ function Buy({ currentCoin, currentCustomer, cancelBuy }) {
       }
       //add the coin object to the account
       else {
-        let newCoin = { coin: currentCoin.symbol, amount: parseFloat(amount) };
+        let newCoin = {
+          coin: currentCoin.symbol,
+          amount: parseFloat(amount),
+          image: currentCoin.image,
+          price: currentCoin.current_price,
+          name: currentCoin.name,
+        };
         tempCoins.push(newCoin);
       }
 
