@@ -7,9 +7,7 @@ function Buy({ currentCoin, currentCustomer, cancelBuy }) {
   console.log(currentCoin, currentCustomer);
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState("");
-  const [coin, setCoin] = useState({});
   const [account, setAccount] = useState({});
-  const [confirm, setConfirm] = useState(false);
   const [funds, setFunds] = useState(false);
 
   /** Loading current customer account from API *****/
@@ -24,60 +22,14 @@ function Buy({ currentCoin, currentCustomer, cancelBuy }) {
       }
     };
     fetch();
-  }, []);
+  }, [currentCustomer.id]);
   /***************************************************************** */
-  useEffect(() => {
-    //   const confirmPurchase = () => {
-    // const updateUserId = currentCustomer.id;
-    const totalPrice = currentCoin.current_price * amount;
-    const updateAccount = account;
-    // const updateAmount = amount;
-    console.log("totalPrice", totalPrice);
-    console.log("updateAccount", updateAccount);
-    console.log("account state var", account);
 
-    // check if user has enough money to buy
-    // if (updateAccount.balance >= totalPrice) {
-    //   updateAccount.balance -= totalPrice;
-
-    //check if use has already this coin in their account
-    //   const exists = updateAccount.cryptoCoins.find((coin) => {
-    //     return coin.coin === currentCoin.symbol;
-    //   });
-    //   console.log("updateaccount", updateAccount);
-    //   if (exists) {
-    //     exists.amount = parseFloat(exists.amount) + updateAmount;
-    //     console.log("exists", exists, updateAccount.balance);
-    //   } else {
-    //     setCoin({ coin: currentCoin.symbol, amount: updateAmount });
-    //     updateAccount.cryptoCoins.push(coin);
-    //     console.log("new account coin", updateAccount, updateAmount);
-    //   }
-    // } else {
-    //   setMessage("You Do not have Enough Funds!");
-    //   //   return cancelBuy;
-    // }
-    //   };
-
-    // updating API with the new account info
-    // const update = async () => {
-    //   if (confirm) {
-    //     try {
-    //       const newAcount = await updateUserAccount(currentCustomer.id, updateAccount);
-    //       console.log("inside buy", newAcount);
-    //       setAccount(newAcount);
-    //     } catch (err) {
-    //       console.log(err.message);
-    //     }
-    //   }
-    // };
-    // update();
-  }, []);
   /****************************************************** */
   const handleSubmit = (event) => {
     event.preventDefault();
   };
-
+  /****************************************************** */
   const hasEnoughFunds = () => {
     const totalPrice = currentCoin.current_price * amount;
     let tempCoins = [...account.cryptoCoins];
@@ -139,7 +91,7 @@ function Buy({ currentCoin, currentCustomer, cancelBuy }) {
       }
     };
     update();
-  }, [account, currentCustomer]);
+  }, [account, currentCustomer, funds]);
   /********************************************************** */
   return (
     <div className="form-container">
