@@ -1,4 +1,5 @@
 import React from "react";
+import formatter from "../utils/formatter";
 
 function AccountDetails({ account }) {
   console.log("details", account);
@@ -6,7 +7,7 @@ function AccountDetails({ account }) {
   console.log("coins array", coins);
   return (
     <div>
-      <h2> Acount Balance : ${account.balance}</h2>
+      <h2> Acount Balance : {formatter.format(account.balance)}</h2>
       {coins.map((item, index) => (
         <div key={item.coin}>
           <div>

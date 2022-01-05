@@ -14,3 +14,13 @@ export const getUserAccount = async (userId) => {
     console.log(e.message);
   }
 };
+
+export const updateUserAccount = async (userId, obj) => {
+  try {
+    const { data } = await api.put(`Accounts/${userId}`, obj);
+    return data;
+  } catch (e) {
+    console.log(e.message);
+    console.dir(e);
+  }
+};

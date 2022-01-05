@@ -1,27 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "./risingBull.png";
+import "./Header.css";
 
 const Header = ({ customer }) => {
+  const userLogOut = () => {
+    window.location.reload(false);
+    window.localStorage.removeItem("token");
+  };
   return (
     <div className="ui secondary pointing menu">
       <div>
         {" "}
-        <img src={logo} alt="logo" width="60px" />
+        <img className="logo" src={logo} alt="logo" />
       </div>
-      <Link to="/Home" className="item">
+      <h2> Crypto Bull Trading</h2>
+      <Link to="/Home" className="right item">
         {" "}
-        Crypto Bull
+        Prices
       </Link>
-      <Link to="/Account" className="item">
+      <Link to="/Account" className="right item">
         {" "}
         My Account{" "}
       </Link>
+
       <Link to="/login" className="right item">
-        Log Out <i class="user logout icon"></i>
+        <spanc onClick={userLogOut}>Log Out</spanc> <i class="user logout icon"></i>
       </Link>
     </div>
   );
 };
-
+// {window.localStorage.removeItem("token")}
 export default Header;

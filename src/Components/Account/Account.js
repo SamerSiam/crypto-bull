@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import accountData from "../../API/Tokens";
+import { getUserAccount } from "../../API/Accounts.api";
 import AccountDetails from "../AccountDetails/AccountDetails";
 
 function Account({ customer }) {
   const [account, setAccount] = useState(null);
   const [errorMsg, setErrorMsg] = useState("Loading");
-  //   const customerID = useRef(customer.id);
 
   useEffect(() => {
     const fetch = async () => {
@@ -13,14 +12,9 @@ function Account({ customer }) {
 
       try {
         console.log(" inside try");
-        const { data } = await accountData.get("Accounts");
-        console.log(" API accounts", data);
-
-        if (customer && data) {
-          const customerAct = data.filter((act) => act.customerID === parseInt(customer.id));
-          console.log("account is", data, customer.id, customerAct);
-          setAccount(customerAct[0]);
-        }
+        const custAcount = await getUserAccount(customer.id);
+        console.log(" API accounts", custAcount);
+        setAccount(custAcount);
       } catch (err) {
         setErrorMsg(err.message);
       }

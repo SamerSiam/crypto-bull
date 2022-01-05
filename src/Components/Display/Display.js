@@ -40,7 +40,9 @@ function Display({ customer }) {
   if (isLoading === true) {
     return <Spinner message={errorMsg} />;
   } else if (buy === true && currentCoin) {
-    return <Buy currentCoin={currentCoin} currentCustomer={customer} />;
+    return (
+      <Buy currentCoin={currentCoin} currentCustomer={customer} cancelBuy={() => setBuy(false)} />
+    );
   } else {
     return (
       <div className="display-container">

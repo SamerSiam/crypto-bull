@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "Roboto", sans-serif;
+  @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.15;
+}
+
+.container {
+  color: #0f1111;
+  background-color: #131921;
+}
+
+.logo {
+  padding-left: 10px;
+  margin-left: 5px;
+  width: 80px;
+}

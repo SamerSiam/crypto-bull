@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { getUserAccount } from "../../API/Accounts.api";
+import { getUserAccount, updateUserAccount } from "../../API/Accounts.api";
+import formatter from "../utils/formatter";
 
-const formatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  maximumFractionDigits: 2,
-});
-function Buy({ currentCoin, currentCustomer }) {
-  console.log(currentCoin, currentCustomer);
+function Buy({ currentCoin, currentCustomer, cancelBuy }) {
+  //   console.log(currentCoin, currentCustomer);
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState("");
   const [coin, setCoin] = useState({});
   const [account, setAccount] = useState({});
+  const [confirm, setConfirm] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -27,32 +24,52 @@ function Buy({ currentCoin, currentCustomer }) {
   }, [currentCustomer.id]);
   /***************************************************************** */
   useEffect(() => {
-    const totalAmount = currentCoin.current_price * amount;
-    console.log("total", totalAmount);
-    if (account.balance >= totalAmount) {
-      account.balance -= totalAmount;
-      const exists = account.cryptoCoins.find((coin) => {
+    //   const confirmPurchase = () => {
+    // const updateUserId = currentCustomer.id;
+    const totalPrice = currentCoin.current_price * amount;
+    const updateAccount = account;
+    const updateAmount = amount;
+
+    // check if user has enough money to buy
+    if (updateAccount.balance >= totalPrice) {
+      updateAccount.balance -= totalPrice;
+
+      //check if use has already this coin in their account
+      const exists = updateAccount.cryptoCoins.find((coin) => {
         return coin.coin === currentCoin.symbol;
       });
-      console.log("exists", exists);
+      console.log("updateaccount", updateAccount);
       if (exists) {
-        exists.amount = parseFloat(exists.amount) + amount;
-        console.log("exists", exists, account.balance);
+        exists.amount = parseFloat(exists.amount) + updateAmount;
+        console.log("exists", exists, updateAccount.balance);
       } else {
-        setCoin({ coin: currentCoin.symbol, amount: amount });
-        account.cryptoCoins.push(coin);
-        console.log("new account", account);
+        setCoin({ coin: currentCoin.symbol, amount: updateAmount });
+        updateAccount.cryptoCoins.push(coin);
+        console.log("new account coin", updateAccount, updateAmount);
       }
     } else {
       setMessage("You Do not have Enough Funds!");
-      return;
+      //   return;
     }
-  }, [amount, coin, account]);
+    //   };
+    const update = async () => {
+      try {
+        const newAcount = await updateUserAccount(currentCustomer.id, updateAccount);
+        console.log("inside buy", newAcount);
+        setAccount(newAcount);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    update();
+  }, [amount]);
   /****************************************************** */
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
   return (
     <div className="form-container">
-      <form>
+      <form onSubmit={handleSubmit}>
         <h1>Purchase Coin</h1>
         <div className="form-coin">
           <div>
@@ -63,7 +80,13 @@ function Buy({ currentCoin, currentCustomer }) {
         <label> Enter Amount</label>
         <input type="number" placeholder="amount" onChange={(e) => setAmount(e.target.value)} />
         <div>Total Price: {formatter.format(currentCoin.current_price * amount)}</div>
-        <button className="ui primary button">Confirm Purchase</button>
+        <button className="ui primary button" onClick={() => setConfirm(true)}>
+          Confirm Purchase
+        </button>
+
+        <button className="ui primary button" onClick={cancelBuy}>
+          Cancel
+        </button>
       </form>
       <div className="error">{message}</div>
     </div>
