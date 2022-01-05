@@ -53,12 +53,14 @@ function Buy({ currentCoin, currentCustomer, cancelBuy }) {
     }
     //   };
     const update = async () => {
-      try {
-        const newAcount = await updateUserAccount(currentCustomer.id, updateAccount);
-        console.log("inside buy", newAcount);
-        setAccount(newAcount);
-      } catch (err) {
-        console.log(err.message);
+      if (confirm) {
+        try {
+          const newAcount = await updateUserAccount(currentCustomer.id, updateAccount);
+          console.log("inside buy", newAcount);
+          setAccount(newAcount);
+        } catch (err) {
+          console.log(err.message);
+        }
       }
     };
     update();
