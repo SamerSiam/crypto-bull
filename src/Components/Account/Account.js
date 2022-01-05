@@ -11,9 +11,7 @@ function Account({ customer }) {
       setErrorMsg("");
 
       try {
-        console.log(" inside try");
         const custAcount = await getUserAccount(customer.id);
-        console.log(" API accounts", custAcount);
         setAccount(custAcount);
       } catch (err) {
         setErrorMsg(err.message);

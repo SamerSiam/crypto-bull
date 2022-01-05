@@ -4,7 +4,6 @@ import formatter from "../utils/formatter";
 import "./Buy.css";
 
 function Buy({ currentCoin, currentCustomer, cancelBuy }) {
-  console.log(currentCoin, currentCustomer);
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState("");
   const [account, setAccount] = useState({});
@@ -15,7 +14,6 @@ function Buy({ currentCoin, currentCustomer, cancelBuy }) {
     const fetch = async () => {
       try {
         const custAcount = await getUserAccount(currentCustomer.id);
-        console.log("inside buy", custAcount);
         setAccount(custAcount);
       } catch (err) {
         console.log(err.message);
@@ -38,26 +36,18 @@ function Buy({ currentCoin, currentCustomer, cancelBuy }) {
       return coin.coin === currentCoin.symbol;
     });
 
-    console.log("temp coins", tempCoins);
-    console.log("totalPrice", totalPrice);
-
-    console.log("account state var", account);
-
     // check if user has enough money to buy
     if (account.balance >= totalPrice) {
       setFunds(true);
 
       //if user has the coin in their account, need to update the amount
       if (coinExists) {
-        console.log("coinExists", coinExists);
         coinExists.amount = parseFloat(coinExists.amount) + parseFloat(amount);
-        console.log("coinExists after update", coinExists);
       }
       //add the coin object to the account
       else {
         let newCoin = { coin: currentCoin.symbol, amount: parseFloat(amount) };
         tempCoins.push(newCoin);
-        console.log("temp coins after push", tempCoins);
       }
 
       /**  update account object */
@@ -95,7 +85,6 @@ function Buy({ currentCoin, currentCustomer, cancelBuy }) {
   /********************************************************** */
   return (
     <div className="form-container">
-      {console.log("account after state update", account)}
       <form onSubmit={handleSubmit}>
         <h1>Purchase Coin</h1>
         <div className="form-coin">
@@ -107,7 +96,7 @@ function Buy({ currentCoin, currentCustomer, cancelBuy }) {
         <label> Enter Amount</label>
         <input type="number" placeholder="amount" onChange={(e) => setAmount(e.target.value)} />
         <div>Total Price: {formatter.format(currentCoin.current_price * amount)}</div>
-        {/* <div> Current Balance: {account.balance}</div> */}
+        <div> Current Balance: {formatter.format(account.balance)}</div>
         <button className="ui primary button" onClick={() => hasEnoughFunds()}>
           Confirm Purchase
         </button>

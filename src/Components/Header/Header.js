@@ -30,5 +30,5 @@ const Header = ({ customer }) => {
     </div>
   );
 };
-// {window.localStorage.removeItem("token")}
+
 export default Header;

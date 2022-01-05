@@ -18,7 +18,6 @@ function App() {
     }
     const tokenString = localStorage.getItem("token");
     const userToken = JSON.parse(tokenString);
-    console.log("inside gettoken", token);
     setToken(userToken);
   }, [token]);
 
