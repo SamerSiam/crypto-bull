@@ -1,5 +1,6 @@
 import React from "react";
 import formatter from "../utils/formatter";
+import "./AccountDetails.css";
 
 function AccountDetails({ account }) {
   console.log("details", account);
